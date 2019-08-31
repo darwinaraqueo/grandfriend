@@ -3,5 +3,9 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   root to: 'application#index'
 
+  api_version(module: 'api/v1', path: { value: 'api/v1' }, defaults: { format: :json }) do
+    resources :grand_friends
+  end
+
   mount Sidekiq::Web, at: 'sidekiq'
 end
