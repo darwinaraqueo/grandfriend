@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.4.0'
+ruby '2.5.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.3'
@@ -17,7 +17,9 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 
-gem 'therubyracer', platforms: :ruby
+# gem 'therubyracer', platforms: :ruby
+
+gem 'mini_racer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -96,6 +98,7 @@ group :development do
 end
 
 group :development, :test do
+  gem "rename"
   gem 'awesome_print'
 
   # Loads ENV variables from .env file in base folder
