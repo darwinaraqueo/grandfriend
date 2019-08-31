@@ -10,7 +10,7 @@ ActiveAdmin.register CurriculumVitae do
   # or
   #
   permit_params do
-    permitted = [:first_name, :last_name, :confidence_level, :picture, :decription, :users_id]
+    permitted = [:first_name, :last_name, :confidence_level, :picture, :description, :user_id]
     permitted << :other if params[:action] == 'create' 
     permitted
   end
