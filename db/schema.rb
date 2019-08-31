@@ -10,9 +10,125 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20190831015554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string "namespace"
+    t.text "body"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.string "author_type"
+    t.bigint "author_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
+    t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
+    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  end
+
+  create_table "admin_users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_admin_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "asylums", force: :cascade do |t|
+    t.string "name"
+    t.string "latitude"
+    t.string "longitude"
+    t.string "schedul"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "connections", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "grand_friend_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["grand_friend_id"], name: "index_connections_on_grand_friend_id"
+    t.index ["user_id"], name: "index_connections_on_user_id"
+  end
+
+  create_table "curriculum_vitaes", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.integer "confidence_level"
+    t.string "picture"
+    t.text "decription"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_curriculum_vitaes_on_user_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.bigint "asylum_id"
+    t.string "name"
+    t.string "description"
+    t.integer "category"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["asylum_id"], name: "index_events_on_asylum_id"
+  end
+
+  create_table "grand_friends", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.date "birthdate"
+    t.text "description"
+    t.text "intereses"
+    t.string "picture"
+    t.text "considerations"
+    t.boolean "block_visit"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "scheduling_times", force: :cascade do |t|
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer "day"
+    t.bigint "grand_friend_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["grand_friend_id"], name: "index_scheduling_times_on_grand_friend_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "phone"
+    t.string "dni"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "visits", force: :cascade do |t|
+    t.string "code_visit"
+    t.integer "calcification"
+    t.string "status"
+    t.datetime "date"
+    t.bigint "grand_friend_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["grand_friend_id"], name: "index_visits_on_grand_friend_id"
+    t.index ["user_id"], name: "index_visits_on_user_id"
+  end
 
 end
