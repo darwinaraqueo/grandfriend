@@ -9,10 +9,10 @@ ActiveAdmin.register Event do
   #
   # or
   #
-  # permit_params do
-  #   permitted = [:asylums_id, :name, :description, :category, :start_date, :end_date]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
+  permit_params do
+    permitted = [:asylums_id, :name, :description, :category, :start_date, :end_date]
+    permitted << :other if params[:action] == 'create'
+    permitted
+  end
   
 end
